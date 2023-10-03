@@ -91,7 +91,7 @@ body{
         justify-content: space-around;
     } 
     
-    select,#forecast-city, #five-day-forecast, aside, .other{
+    select, #forecast-city, #five-day-forecast, aside, .other{
       width: 100%;
     }
   }
