@@ -216,7 +216,7 @@ function getWeather(){
 
 function getCoordinates(){
     if(city != 'choose' && city.length < 25){
-        fetch('http://api.openweathermap.org/geo/1.0/direct?q='+city+','+state+','+country+'&limit='+1+'&appid=f76c276e91986fd36d44848316201569')
+        fetch('https://api.openweathermap.org/geo/1.0/direct?q='+city+','+state+','+country+'&limit='+1+'&appid=f76c276e91986fd36d44848316201569')
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
