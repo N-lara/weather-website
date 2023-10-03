@@ -74,6 +74,11 @@ div#five-day-display div p{
     margin-left: 40%;
 }
 
-main{
+footer{
+    text-align: center;
+    font-weight: bold
+}
+
+body{
     background-color: rgba(126, 222, 235, 0.446);
 }
