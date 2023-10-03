@@ -28,6 +28,7 @@ var cityName = '';
 var fiveDayDisplay = $("#five-day-display");
 var cityHistory = [];
 var searchHistory = $('#search-history')
+var forecastCity = $('#forecast-city')
 
 //requirements for geo api to work
 var headers = new Headers();
@@ -164,6 +165,7 @@ function getWeather(){
             if (response.ok) {
                 response.json().then(function (data) {
                     console.log(data);
+                    forecastCity.text('5-Day Forecast: '+cityName)
                     fiveDayDisplay.html('')
                     for(var i = 0; i < data.list.length; i++){
                         if(i % 8 == 0 ){
