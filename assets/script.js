@@ -255,8 +255,8 @@ function getCoordinates(){
                 console.log(response.statusText);
             }
         })
-    }
-}}
+    }}
+}
 
 //when a history city is clicked it sets searching variables to the data attributes of that city and gets the wateher
 searchHistory.on('click', 'p', function(event){

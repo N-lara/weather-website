@@ -82,3 +82,16 @@ footer{
 body{
     background-color: rgba(126, 222, 235, 0.446);
 }
+
+@media (max-width: 500px) {
+    #searchArea, .contentContainer{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-around;
+    } 
+    
+    select,#forecast-city, #five-day-forecast, aside, .other{
+      width: 100%;
+    }
+  }
