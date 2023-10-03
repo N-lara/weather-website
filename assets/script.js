@@ -130,12 +130,12 @@ function getHistory(){
         console.log(cityHistory);
     }
     for(var i = 0; i < cityHistory.length; i++){
-        var historyUl = $("<ul>");
-        searchHistory.append(historyUl);
+        var historyP = $("<p>");
+        searchHistory.append(historyP);
         
-        historyUl.text(cityHistory[i].name);
-        historyUl.data('lon', cityHistory[i].lon);
-        historyUl.data('lat', cityHistory[i].lat);
+        historyP.text(cityHistory[i].name);
+        historyP.data('lon', cityHistory[i].lon);
+        historyP.data('lat', cityHistory[i].lat);
     }
 }
 
@@ -157,6 +157,7 @@ function addHistory(){
 }
 
 function getWeather(){
+    console.log('getWeather')
     if(city !== 'choose' && latitude !== '' && longitude!== ''){
         fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=imperial&appid=f76c276e91986fd36d44848316201569')
         .then(function (response) {
@@ -166,12 +167,15 @@ function getWeather(){
                     fiveDayDisplay.html('')
                     for(var i = 0; i < data.list.length; i++){
                         if(i % 8 == 0 ){
+                            console.log('i: '+i)
                             var dayDiv = $('<div>');
+                            dayDiv.addClass('forecast')
                             var dateH2 = $('<h2>');
                             var iconImg = $("<img>");
                             var tempP = $('<p>');
                             var windP = $('<p>');
                             var humidP = $('<p>');
+                            
                             todaysTemp = data.list[i].main.temp;//temp
                             console.log(todaysTemp);
                             todaysWind = data.list[i].wind.speed;//wind
@@ -190,12 +194,14 @@ function getWeather(){
                             dayDiv.append(tempP);
                             dayDiv.append(windP);
                             dayDiv.append(humidP);
-
+                            
+                            if(i==0){dayDiv.addClass('first');console.log('first');}
+                            else{dayDiv.addClass('other');console.log('other');}
                             dateH2.text(todaysDate);
                             iconImg.attr('src', iconURL);
-                            tempP.text('temperature: '+ Math.round(todaysTemp) +'F');
-                            windP.text('Wind speed: '+ Math.round(todaysWind) +'MPH');
-                            humidP.text('Humidity: '+ todaysHumidity);
+                            tempP.text('temperature: '+ Math.round(todaysTemp) +'° F');
+                            windP.text('Wind speed: '+ Math.round(todaysWind) +' MPH');
+                            humidP.text('Humidity: '+ todaysHumidity + '%');
                         }
                     }
             });
@@ -228,6 +234,17 @@ function getCoordinates(){
         })
     }
 }
+
+searchHistory.on('click', 'p', function(event){
+    var target=$(event.target)
+    cityName = target.text();
+    city = cityName
+    longitude =target.data('lon'); 
+    latitude =target.data('lat');
+    console.log(cityName +longitude+latitude);
+    getWeather();
+})
+
 
 getHistory();
 
