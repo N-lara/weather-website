@@ -1,3 +1,75 @@
+header{
+    background-color: rgba(0, 0, 255, 0.46);
+    padding: 1vh;
+    text-align: center;
+}
+
+h2{text-align: center;}
+
+#searchArea{
+    text-align: center;
+    background-color: rgba(128, 128, 128, 0.275);
+    padding: 3px;
+}
 select {
     width: 20%;
+}
+
+.contentContainer{
+    display: flex;
+}
+
+aside{
+    width:15%;
+    border-style: solid;
+    padding-bottom: 50vh;
+}
+
+#search-history p{
+    width: 90%;
+    background-color: blue;
+    border-radius: 5px;
+    text-align: center;
+    list-style:circle;
+    margin: auto;
+    margin-top: 4%;
+    padding: 1%;
+}
+
+#five-day-forecast{
+    width: 85%;
+    margin: 1%;
+    margin-top: 0;
+}
+
+div#five-day-display{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around
+}
+
+div#five-day-display div{
+    border-style: groove ;
+    border-width: 3px;
+}
+
+div#five-day-display div p{
+    margin-left: 15px;
+}
+
+.first{
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.first img{
+    margin-left: 48%;
+}
+
+.other{
+    width: 20%;
+}
+
+.other img{
+    margin-left: 40%;
 }
