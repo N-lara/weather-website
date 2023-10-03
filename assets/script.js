@@ -88,7 +88,7 @@ stateSelect.on('click', function(event){
     state = $(event.target).val()
     console.log(city);
     //verification to make sure state is not empty
-    if(state !== "choose"){
+    if(state !== "choose" && state != 'UM-84'){
         citySelect.html('');
         cities = [];
         //does fetch to get list of cities in country chosen
@@ -256,7 +256,7 @@ function getCoordinates(){
             }
         })
     }
-}
+}}
 
 //when a history city is clicked it sets searching variables to the data attributes of that city and gets the wateher
 searchHistory.on('click', 'p', function(event){
@@ -276,5 +276,3 @@ getHistory();
 searchBtn.on('click', function(){
     getCoordinates();
 })
-
-
