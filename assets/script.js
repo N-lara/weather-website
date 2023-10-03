@@ -26,6 +26,8 @@ var longitude = '';
 var latitude = '';
 var cityName = '';
 var fiveDayDisplay = $("#five-day-display");
+var cityHistory = [];
+var searchHistory = $('#search-history')
 
 //requirements for geo api to work
 var headers = new Headers();
@@ -47,7 +49,7 @@ fetch("https://api.countrystatecity.in/v1/countries", requestOptions)
             countryOptionEl.html(data[i].name);
             countryOptionEl.val(data[i].iso2);
             countrySelect.append(countryOptionEl);
-            display(data[i].name + " / "  + countryOptionEl.val());
+            console.log(data[i].name + " / "  + countryOptionEl.val());
         }
     });
     } else {
@@ -73,7 +75,7 @@ countrySelect.on('click', function(event){
                     stateOptionEl.html(data[i].name);
                     stateOptionEl.val(data[i].iso2);
                     stateSelect.append(stateOptionEl);
-                    display(data[i].name + " / "  + stateOptionEl.val());
+                    console.log(data[i].name + " / "  + stateOptionEl.val());
                 }
                 });
             } else {
@@ -101,7 +103,7 @@ stateSelect.on('click', function(event){
                     cityOptionEl.html(data[i].name);
                     cityOptionEl.val(data[i].name);
                     citySelect.append(cityOptionEl);
-                    display(data[i].name + " / "  + cityOptionEl.val());
+                    console.log(data[i].name + " / "  + cityOptionEl.val());
                 }
                 });
             } else {
@@ -118,6 +120,42 @@ citySelect.on("click", function(event){
 
 })
 
+function getHistory(){
+    console.log('get history')
+    searchHistory.html('')
+    var localHistory = JSON.parse(localStorage.getItem('cities'));
+    console.log(localHistory);
+    if(localHistory !== null){
+        cityHistory = localHistory;
+        console.log(cityHistory);
+    }
+    for(var i = 0; i < cityHistory.length; i++){
+        var historyUl = $("<ul>");
+        searchHistory.append(historyUl);
+        
+        historyUl.text(cityHistory[i].name);
+        historyUl.data('lon', cityHistory[i].lon);
+        historyUl.data('lat', cityHistory[i].lat);
+    }
+}
+
+function addHistory(){
+    var city = {
+        name: cityName,
+        lat: latitude,
+        lon: longitude
+    }
+    
+    console.log(city);
+    if(cityHistory == []){cityHistory = [city]}
+    else{cityHistory.unshift(city);}
+    if(cityHistory.length == 10){cityHistory.pop()}
+    console.log(cityHistory);
+    localStorage.clear();
+    localStorage.setItem('cities',JSON.stringify(cityHistory));
+    getHistory();
+}
+
 function getWeather(){
     if(city !== 'choose' && latitude !== '' && longitude!== ''){
         fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=imperial&appid=f76c276e91986fd36d44848316201569')
@@ -125,9 +163,9 @@ function getWeather(){
             if (response.ok) {
                 response.json().then(function (data) {
                     console.log(data);
+                    fiveDayDisplay.html('')
                     for(var i = 0; i < data.list.length; i++){
                         if(i % 8 == 0 ){
-                            console.log('hi post if');
                             var dayDiv = $('<div>');
                             var dateH2 = $('<h2>');
                             var iconImg = $("<img>");
@@ -180,6 +218,7 @@ function getCoordinates(){
                     cityName = data[0].name;
                     console.log('lat: '+ latitude[0-5] + ' / lon: '+ longitude[0-5] + ' / city: '+ cityName)
                     getWeather();
+                    addHistory();
                  }
             );
             } else {
@@ -190,15 +229,10 @@ function getCoordinates(){
     }
 }
 
+getHistory();
+
 searchBtn.on('click', function(){
     getCoordinates();
 })
-
-
-
-
-function display(data){
-    console.log(data);
-}
 
 
