@@ -231,14 +231,13 @@ function getWeather(){
 
 //function uses data gathered by the selects to search for coordinates of a location
 function getCoordinates(){
-<<<<<<< HEAD
+
     if(city != 'choose' && city.length < 25){
         fetch('https://api.openweathermap.org/geo/1.0/direct?q='+city+','+state+','+country+'&limit='+1+'&appid=f76c276e91986fd36d44848316201569')
-=======
+
     //verification makes sure its not empty and makes sure its not selecting every option
     if(city != 'choose' && city.length < 30){
         fetch('https://api.openweathermap.org/geo/1.0/direct?q='+city+','+state+','+country+'&limit='+1+'&appid=f76c276e91986fd36d44848316201569')
->>>>>>> 6088f34e722a7ead9712158303e8ca3743836293
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
